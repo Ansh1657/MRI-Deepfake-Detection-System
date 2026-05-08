@@ -198,8 +198,7 @@ The system was trained on:
 ## 🎓 Academic Context
 
 **Institution:** VIT Bhopal University  
-**Course:** Deep Learning / Medical Imaging  
-**Student:** Ansh Chhibber (23BAI10380)
+**Student:** Ansh Chhibber
 
 **Research Objectives:**
 - Explore GAN-based medical image synthesis
@@ -276,7 +275,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- VIT Bhopal University for research support
 - OpenCV and PyTorch communities
 - Medical imaging datasets providers
 - Deep learning research community
