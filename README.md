@@ -49,7 +49,7 @@ This project implements a complete end-to-end deepfake detection system for medi
 - **Twin Generation**: Synthetic counterpart visualization
 
 ## 📁 Repository Structure
-'''
+```
 mri-deepfake-detection/
 │
 ├── data/                       # (Ignored) Local dataset storage
@@ -91,7 +91,7 @@ mri-deepfake-detection/
 ├── LICENSE                     # MIT License
 ├── SETUP_GUIDE.md             # Installation instructions
 └── README.md                   # This file
-'''
+```
 ## 🚀 Installation
 
 ### Prerequisites
@@ -163,7 +163,7 @@ python src/preprocessing/standardize.py --input raw_mri/ --output processed_256/
 ## 🔬 Technical Details
 
 ### Custom CNN Architecture
-'''
+```
 Input: 256×256×1 grayscale MRI
 ├── Conv2D (32 filters, 3×3) + ReLU + MaxPool
 ├── Conv2D (64 filters, 3×3) + ReLU + MaxPool
@@ -174,7 +174,7 @@ Input: 256×256×1 grayscale MRI
 ├── Dense (256) + ReLU + Dropout (0.5)
 └── Dense (2) + Softmax
 Output: [REAL, FAKE] probability
-'''
+```
 ### DCGAN Architecture
 - **Generator**: 5 transpose convolution layers with batch normalization
 - **Discriminator**: 5 convolution layers with leaky ReLU and dropout
