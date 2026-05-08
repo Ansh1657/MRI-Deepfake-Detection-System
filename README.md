@@ -49,40 +49,49 @@ This project implements a complete end-to-end deepfake detection system for medi
 - **Twin Generation**: Synthetic counterpart visualization
 
 ## 📁 Repository Structure
+'''
 mri-deepfake-detection/
-├── data/ # (Ignored) Local dataset storage
+│
+├── data/                       # (Ignored) Local dataset storage
 │   ├── raw_mri/
-│   ├── processed_265/
+│   ├── processed_256/
 │   └── synthetic_gans/
-├── saved_models/ # Trained model weights
+│
+├── saved_models/               # Trained model weights
 │   ├── dcgan_bright.pth
 │   ├── dcgan_dark.pth
 │   ├── custom_cnn_detector.pth
 │   └── resnet18_router.pth
-├── notebooks/ # Research & development notebooks
+│
+├── notebooks/                  # Research & development notebooks
 │   ├── 01_skull_stripping_rough.ipynb
 │   └── 02_densenet121_benchmark.ipynb
-├── src/ # Main source code
-│   ├── __init__.py
+│
+├── src/                        # Main source code
+│   ├── init.py
 │   ├── preprocessing/
-│   │   ├── __init__.py
-│   │   ├── standardize.py # 265×265 resizing & rotation
-│   │   └── intensity_route.py # Bright vs Dark filtering
+│   │   ├── init.py
+│   │   ├── standardize.py      # 256×256 resizing & rotation
+│   │   └── intensity_route.py  # Bright vs Dark filtering
+│   │
 │   ├── models/
-│   │   ├── __init__.py
-│   │   ├── resnet_router.py # Orientation classifier
-│   │   ├── dcgan.py # Generator & Discriminator
-│   │   └── custom_cnn.py # 4-Layer detector architecture
+│   │   ├── init.py
+│   │   ├── resnet_router.py    # Orientation classifier
+│   │   ├── dcgan.py            # Generator & Discriminator
+│   │   └── custom_cnn.py       # 4-Layer detector architecture
+│   │
 │   └── inference/
-│       ├── __init__.py
-│       ├── generate_twins.py # GAN synthesis script
-│       └── detect_forgery.py # Detection inference
-├── app.py # Gradio UI deployment
-├── requirements.txt # Python dependencies
-├── .gitignore # Git ignore rules
-├── LICENSE # MIT License
-├── SETUP_GUIDE.md # Installation instructions
-└── README.md # This file
+│       ├── init.py
+│       ├── generate_twins.py   # GAN synthesis script
+│       └── detect_forgery.py   # Detection inference
+│
+├── app.py                      # Gradio UI deployment
+├── requirements.txt            # Python dependencies
+├── .gitignore                  # Git ignore rules
+├── LICENSE                     # MIT License
+├── SETUP_GUIDE.md             # Installation instructions
+└── README.md                   # This file
+'''
 ## 🚀 Installation
 
 ### Prerequisites
@@ -154,6 +163,7 @@ python src/preprocessing/standardize.py --input raw_mri/ --output processed_256/
 ## 🔬 Technical Details
 
 ### Custom CNN Architecture
+'''
 Input: 256×256×1 grayscale MRI
 ├── Conv2D (32 filters, 3×3) + ReLU + MaxPool
 ├── Conv2D (64 filters, 3×3) + ReLU + MaxPool
@@ -164,7 +174,7 @@ Input: 256×256×1 grayscale MRI
 ├── Dense (256) + ReLU + Dropout (0.5)
 └── Dense (2) + Softmax
 Output: [REAL, FAKE] probability
-
+'''
 ### DCGAN Architecture
 - **Generator**: 5 transpose convolution layers with batch normalization
 - **Discriminator**: 5 convolution layers with leaky ReLU and dropout
