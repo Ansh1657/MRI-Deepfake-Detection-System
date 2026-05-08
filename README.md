@@ -50,47 +50,39 @@ This project implements a complete end-to-end deepfake detection system for medi
 
 ## 📁 Repository Structure
 mri-deepfake-detection/
-│
-├── data/                       # (Ignored) Local dataset storage
+├── data/ # (Ignored) Local dataset storage
 │   ├── raw_mri/
-│   ├── processed_256/
+│   ├── processed_265/
 │   └── synthetic_gans/
-│
-├── saved_models/               # Trained model weights
+├── saved_models/ # Trained model weights
 │   ├── dcgan_bright.pth
 │   ├── dcgan_dark.pth
 │   ├── custom_cnn_detector.pth
 │   └── resnet18_router.pth
-│
-├── notebooks/                  # Research & development notebooks
+├── notebooks/ # Research & development notebooks
 │   ├── 01_skull_stripping_rough.ipynb
 │   └── 02_densenet121_benchmark.ipynb
-│
-├── src/                        # Main source code
-│   ├── init.py
+├── src/ # Main source code
+│   ├── __init__.py
 │   ├── preprocessing/
-│   │   ├── init.py
-│   │   ├── standardize.py      # 256×256 resizing & rotation
-│   │   └── intensity_route.py  # Bright vs Dark filtering
-│   │
+│   │   ├── __init__.py
+│   │   ├── standardize.py # 265×265 resizing & rotation
+│   │   └── intensity_route.py # Bright vs Dark filtering
 │   ├── models/
-│   │   ├── init.py
-│   │   ├── resnet_router.py    # Orientation classifier
-│   │   ├── dcgan.py            # Generator & Discriminator
-│   │   └── custom_cnn.py       # 4-Layer detector architecture
-│   │
+│   │   ├── __init__.py
+│   │   ├── resnet_router.py # Orientation classifier
+│   │   ├── dcgan.py # Generator & Discriminator
+│   │   └── custom_cnn.py # 4-Layer detector architecture
 │   └── inference/
-│       ├── init.py
-│       ├── generate_twins.py   # GAN synthesis script
-│       └── detect_forgery.py   # Detection inference
-│
-├── app.py                      # Gradio UI deployment
-├── requirements.txt            # Python dependencies
-├── .gitignore                  # Git ignore rules
-├── LICENSE                     # MIT License
-├── SETUP_GUIDE.md             # Installation instructions
-└── README.md                   # This file
-
+│       ├── __init__.py
+│       ├── generate_twins.py # GAN synthesis script
+│       └── detect_forgery.py # Detection inference
+├── app.py # Gradio UI deployment
+├── requirements.txt # Python dependencies
+├── .gitignore # Git ignore rules
+├── LICENSE # MIT License
+├── SETUP_GUIDE.md # Installation instructions
+└── README.md # This file
 ## 🚀 Installation
 
 ### Prerequisites
