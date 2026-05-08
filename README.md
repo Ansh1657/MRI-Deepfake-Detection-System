@@ -49,7 +49,6 @@ This project implements a complete end-to-end deepfake detection system for medi
 - **Twin Generation**: Synthetic counterpart visualization
 
 ## 📁 Repository Structure
-
 mri-deepfake-detection/
 │
 ├── data/                       # (Ignored) Local dataset storage
