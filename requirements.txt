@@ -25,10 +25,6 @@ ipywidgets>=8.0.0
 # Utilities
 tqdm>=4.65.0
 pandas>=2.0.0
-h5py>=3.9.0
-
-# Model Serialization
-pickle5>=0.0.11
 
 # Optional: For advanced visualizations
 tensorboard>=2.14.0
