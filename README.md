@@ -57,16 +57,8 @@ This project implements a complete end-to-end deepfake detection system for medi
 ```text
 mri-deepfake-detection/
 │
-├── data/                       # [WITHHELD FOR IP PROTECTION]
-│   ├── raw_mri/
-│   ├── processed_256/
-│   └── synthetic_gans/
-│
-├── saved_models/               # [WEIGHTS WITHHELD FOR IP PROTECTION]
-│   ├── dcgan_bright.pth
-│   ├── dcgan_dark.pth
-│   ├── custom_cnn_detector.pth
-│   └── resnet18_router.pth
+├── saved_models/               # Directory for model weights (weights withheld for IP protection)
+│   └── .gitkeep                # Placeholder to maintain the directory structure on GitHub
 │
 ├── notebooks/                  # Research & development notebooks
 │   ├── 01_skull_stripping_rough.ipynb
@@ -92,6 +84,7 @@ mri-deepfake-detection/
 │
 ├── app.py                      # Gradio UI deployment
 ├── requirements.txt            # Python dependencies
+├── setup.sh                    # Automated setup and folder generation script
 ├── .gitignore                  # Git ignore rules
 ├── SETUP_GUIDE.md              # Installation instructions
 └── README.md                   # This file
