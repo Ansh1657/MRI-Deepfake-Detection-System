@@ -132,7 +132,3 @@ If port `7860` is already in use by another Jupyter or Gradio instance, launch t
 python app.py --server-port 7861
 
 ```
-
-```
-
-```
