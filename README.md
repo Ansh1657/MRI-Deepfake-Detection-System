@@ -212,5 +212,3 @@ If referencing this architectural approach in your research, please cite:
 *This repository is provided strictly for academic portfolio demonstration. The proprietary code, model architectures, and concepts herein may not be copied, reproduced, distributed, or utilized for commercial purposes without explicit written permission from the author. Patent Pending / IP Protected.*
 
 **⚠️ Academic Use Only** | **Not for Clinical Diagnosis** | **Research Demonstration**
-
-```
