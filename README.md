@@ -82,7 +82,7 @@ mri-deepfake-detection/
 │       ├── generate_twins.py   # GAN synthesis script
 │       └── detect_forgery.py   # Detection inference
 │
-├── app.py                      # Gradio UI deployment
+├── gradio_ui.py                      # Gradio UI deployment
 ├── requirements.txt            # Python dependencies
 ├── setup.sh                    # Automated setup and folder generation script
 ├── .gitignore                  # Git ignore rules
