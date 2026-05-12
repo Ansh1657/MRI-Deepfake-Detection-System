@@ -1,4 +1,4 @@
-# MRI Deepfake Detection System 🧠
+# MRI Deepfake Detection System 👾
 
 ![Demo of MRI Deepfake Detection](link_to_your_60_second_demo_gif_here.gif)
 *(Above: A real-time demonstration of the Gradio interface verifying a scan and generating a synthetic twin.)*
@@ -66,6 +66,7 @@ mri-deepfake-detection/
 │
 ├── src/                        # Main source code
 │   ├── __init__.py
+|   | 
 │   ├── preprocessing/
 │   │   ├── __init__.py
 │   │   ├── standardize.py      # 256×256 resizing & rotation
@@ -77,18 +78,21 @@ mri-deepfake-detection/
 │   │   ├── dcgan.py            # Generator & Discriminator
 │   │   └── custom_cnn.py       # 4-Layer detector architecture
 │   │
-│   └── inference/
+│   ├── inference/
+│   │   ├── __init__.py
+│   │   ├── generate_twins.py   # GAN synthesis script
+│   │   └── detect_forgery.py   # Detection inference
+│   │
+│   └── utils/
 │       ├── __init__.py
-│       ├── generate_twins.py   # GAN synthesis script
-│       └── detect_forgery.py   # Detection inference
+│       └── logger.py           # Handles local saving of uploaded/generated images
 │
-├── gradio_ui.py                      # Gradio UI deployment
+├── gradio_ui.py                # Gradio UI deployment
 ├── requirements.txt            # Python dependencies
 ├── setup.sh                    # Automated setup and folder generation script
 ├── .gitignore                  # Git ignore rules
 ├── SETUP_GUIDE.md              # Installation instructions
 └── README.md                   # This file
-
 ```
 
 ## 🔬 Technical Details
