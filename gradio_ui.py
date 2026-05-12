@@ -1,15 +1,14 @@
 import gradio as gr
 import torch
-from PIL import Image
-import os
-import datetime
 
-# 1. Module Imports
-from src.models.dcgan import Generator
+# 1. Custom Module Imports
 from src.models.custom_cnn import CustomDeepfakeDetector
 from src.models.resnet_router import load_orientation_classifier
-from src.preprocessing.standardize import vision_transform, to_pil, rotate_image
+from src.preprocessing.standardize import vision_transform, rotate_image
 from src.preprocessing.intensity_route import determine_sequence_type
+from src.inference.detect_forgery import analyze_scan
+from src.inference.generate_twins import synthesize_mri
+from src.utils.logger import log_user_data
 
 # 2. Setup & Load Models
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -19,20 +18,13 @@ model_orient, orientation_classes = load_orientation_classifier(device)
 
 # Load Deepfake Detector
 model_detect = CustomDeepfakeDetector()
+# Import os locally just for the path check if needed, or move path logic to inference
+import os 
 detect_weights_path = os.path.join('saved_models', 'custom_cnn_detector.pth')
 if os.path.exists(detect_weights_path):
     model_detect.load_state_dict(torch.load(detect_weights_path, map_location=device, weights_only=True))
 model_detect = model_detect.to(device)
 model_detect.eval()
-
-def log_user_data(original_image, processed_image, task_name):
-    log_dir = os.path.join("user_uploads", datetime.datetime.now().strftime("%Y-%m-%d"))
-    os.makedirs(log_dir, exist_ok=True)
-    timestamp = datetime.datetime.now().strftime("%H%M%S")
-    if original_image:
-        original_image.save(os.path.join(log_dir, f"{timestamp}_{task_name}_original.png"))
-    if processed_image:
-        processed_image.save(os.path.join(log_dir, f"{timestamp}_{task_name}_processed.png"))
 
 # 3. Master Pipeline
 def process_mri(img):
@@ -41,49 +33,23 @@ def process_mri(img):
 
     img = img.convert('RGB')
 
-    # Intensity Filtering (Dark vs Bright)
+    # Preprocessing & Routing
     contrast_label, mean_intensity = determine_sequence_type(img)
-
-    # Transform for Classifiers
     img_tensor = vision_transform(img).unsqueeze(0).to(device)
 
-    with torch.no_grad():
-        # Orientation Classification
-        orient_out = model_orient(img_tensor)
-        orient_idx = torch.argmax(orient_out, 1).item()
-        plane_label = orientation_classes[orient_idx]
-
-        # Deepfake Detection (BCEWithLogits uses Sigmoid)
-        detect_out = model_detect(img_tensor)
-        prob_fake = torch.sigmoid(detect_out).item()
-
-    verdict_dict = {"FAKE": prob_fake, "REAL": 1.0 - prob_fake}
+    # Classification Inference (CNN & ResNet)
+    verdict_dict, plane_label = analyze_scan(img_tensor, model_detect, model_orient, orientation_classes)
 
     pipeline_report = (
         f"🔍 SEQUENCE ANALYSIS: {contrast_label} (Mean Brightness: {mean_intensity:.1f})\n"
         f"🧭 ORIENTATION PREDICTION: {plane_label.capitalize()}"
     )
 
-    # Route to Local GAN
-    gan_weights_path = os.path.join('saved_models', 'dcgan_bright.pth') if "Bright" in contrast_label else os.path.join('saved_models', 'dcgan_dark.pth')
+    # GAN Synthesis Inference
+    synthetic_twin_img, error_msg = synthesize_mri(contrast_label, device)
+    pipeline_report += error_msg
 
-    synthetic_twin_img = None
-    if os.path.exists(gan_weights_path):
-        netG = Generator().to(device)
-        netG.load_state_dict(torch.load(gan_weights_path, map_location=device, weights_only=True))
-        netG.eval()
-
-        with torch.no_grad():
-            noise = torch.randn(1, 100, 1, 1, device=device)
-            fake_tensor = netG(noise)
-            fake_tensor = (fake_tensor.squeeze(0) + 1) / 2.0
-            synthetic_twin_img = to_pil(fake_tensor.cpu())
-            synthetic_twin_img = synthetic_twin_img.resize((256, 256), Image.Resampling.NEAREST)
-
-        del netG
-    else:
-        pipeline_report += f"\n⚠️ Warning: Could not find GAN weights at {gan_weights_path}"
-
+    # Logging
     log_user_data(img, synthetic_twin_img, f"{contrast_label}_{plane_label}")
 
     return verdict_dict, pipeline_report, synthetic_twin_img
