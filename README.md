@@ -62,11 +62,12 @@ mri-deepfake-detection/
 │
 ├── notebooks/                  # Research & development notebooks
 │   ├── 01_skull_stripping_rough.ipynb
-│   └── 02_densenet121_benchmark.ipynb
+│   ├── 02_densenet121_benchmark.ipynb
+│   └── 03_resnet18_orientation_training.ipynb  # ResNet training & automated sorting script
 │
 ├── src/                        # Main source code
 │   ├── __init__.py
-|   | 
+|   |
 │   ├── preprocessing/
 │   │   ├── __init__.py
 │   │   ├── standardize.py      # 256×256 resizing & rotation
@@ -74,8 +75,8 @@ mri-deepfake-detection/
 │   │
 │   ├── models/
 │   │   ├── __init__.py
-│   │   ├── resnet_router.py    # Orientation classifier
-│   │   ├── dcgan.py            # Generator & Discriminator
+│   │   ├── resnet_router.py    # Orientation classifier inference
+│   │   ├── dcgan.py            # Generator & Discriminator architectures
 │   │   └── custom_cnn.py       # 4-Layer detector architecture
 │   │
 │   ├── inference/
