@@ -111,7 +111,6 @@ Input: 256×256×1 grayscale MRI
 ├── Dense (256) + ReLU + Dropout (0.5)
 └── Dense (2) + Softmax
 Output: [REAL, FAKE] probability
-
 ```
 
 ### DCGAN Architecture
